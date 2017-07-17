@@ -1,0 +1,119 @@
+<section>
+    <h4>Detail</h4>
+
+    <table class="table table-condensed">
+        <tbody>
+        <tr>
+            <td>Version</td>
+            <td>{{ hit._source.build }}</td>
+        </tr>
+        <tr>
+            <td>Signature</td>
+            <td>{{ hit._source.signature }}</td>
+        </tr>
+        <tr>
+            <td>Crash Address</td>
+            <td>{{ hit._source.address }}</td>
+        </tr>
+        <tr>
+            <td>Crash Reason</td>
+            <td>{{ hit._source.crash_type }}</td>
+        </tr>
+        <tr>
+            <td>OS</td>
+            <td>{{ hit._source.system_info.os }}</td>
+        </tr>
+        <tr>
+            <td>OS Version</td>
+            <td>{{ hit._source.system_info.os_ver }}</td>
+        </tr>
+        <tr>
+            <td>CPU</td>
+            <td>{{ hit._source.system_info.cpu_info }}</td>
+        </tr>
+        <tr>
+            <td>GPU Vendor</td>
+            <td>{{ hit._source.gpu.vendor }}</td>
+        </tr>
+        <tr>
+            <td>GPU Render</td>
+            <td>{{ hit._source.gpu.renderer }}</td>
+        </tr>
+        <tr>
+            <td>User Identification</td>
+            <td>{{ hit._source.user_id }}</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h4>Crashin thread {{ hit._source.crashing_thread.threads_index }}</h4>
+
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <td>Frame</td>
+            <td>Function</td>
+            <td>Module</td>
+            <td>Source</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="tfm in hit._source.crashing_thread.frames">
+            <td>{{ tfm.frame }}</td>
+            <td>{{ tfm.function }}</td>
+            <td>{{ tfm.module }}</td>
+            <td>{{ tfm.file }}:{{ tfm.line }}</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h4>Modules</h4>
+
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <td>File name</td>
+            <td>Version</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="mod in hit._source.modules">
+            <td>{{ mod.filename }}</td>
+            <td>{{ mod.version }}</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+
+<section ng-repeat="thread in hit._source.threads">
+    <h4>Thread № {{ $index }}</h4>
+
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <td>Frame</td>
+            <td>Function</td>
+            <td>Module</td>
+            <td>Source</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="tfm in thread.frames">
+            <td>{{ tfm.frame }}</td>
+            <td>{{ tfm.function }}</td>
+            <td>{{ tfm.module }}</td>
+            <td>{{ tfm.file }}:{{ tfm.line }}</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h4>Small log file</h4>
+    <textarea rows="16" cols="190" width="100%" readonly>{{ hit._source.raw_log }}{{ hit._source.raw_dump }}</textarea>
+</section>
