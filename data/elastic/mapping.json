@@ -1,0 +1,74 @@
+{
+  "mappings": {
+    "symbol": {
+      "_all": {
+        "enabled": false
+      },
+      "properties": {
+        "platform": {
+          "type": "keyword"
+        },
+        "build": {
+          "type": "keyword"
+        },
+        "date_added": {
+          "type": "date"
+        }
+      }
+    },
+    "crash": {
+      "_all": {
+        "enabled": false
+      },
+      "properties": {
+        "crash_info": {
+          "properties": {
+            "address": {
+              "type": "keyword"
+            },
+            "crashing_thread": {
+              "type": "short"
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
+        },
+        "user_id": {
+          "type": "long"
+        },
+        "system_info": {
+          "properties": {
+            "os": {
+              "type": "text"
+            },
+            "os_ver": {
+              "type": "text"
+            }
+          }
+        },
+        "date_added": {
+          "type": "date"
+        },
+        "build": {
+          "type": "keyword"
+        },
+        "signature": {
+          "type": "keyword"
+        },
+        "source": {
+          "type": "text"
+        },
+        "crash_type": {
+          "type": "keyword"
+        },
+        "address": {
+          "type": "keyword"
+        },
+        "platform": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
