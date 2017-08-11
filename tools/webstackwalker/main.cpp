@@ -1,10 +1,10 @@
-#include <map>
 #include <set>
 #include <list>
 #include <regex>
 #include <fstream>
 #include <iostream>
 #include <cxxabi.h>
+#include <unordered_map>
 
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
@@ -21,6 +21,9 @@ struct Deleter
 };
 
 using CharPtr = std::unique_ptr<char, Deleter>;
+
+const std::string ASMJS_RE = "^(?:\\s{4}at\\s){0,1}(?:Array\\.){0,1}([\\w\\d\\$]+)(?: \\(|@).+\\){0,1}";
+const std::string WASM_RE = "^.+[\\[\\s](\\d+)[\\]@]\\+{0,1}.+";
 }
 
 std::string demangle(const std::string &mangledName)
@@ -62,11 +65,9 @@ void printUsage()
     std::cout << "webstackwalker crash_dump symbol_file" << std::endl;
 }
 
-std::map<std::string, std::string> SYMBOL_MAP;
+std::unordered_map<std::string, std::string> SYMBOL_MAP;
 
 void readSymbols(const std::string &path);
-
-void flushUnParseLine(const std::string &line);
 
 int main(int argc, char **argv)
 {
@@ -76,11 +77,15 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    readSymbols(std::string(argv[2]));
+    for (int i = 2; i <= (argc - 1); ++i)
+    {
+        readSymbols(std::string(argv[i]));
+    }
 
     const std::string inputFile(argv[1]);
     std::ifstream input(inputFile);
-    const std::regex re("^(?:\\s{4}at\\s){0,1}(?:Array\\.){0,1}([\\w\\d\\$]+)(?: \\(|@).+\\){0,1}");
+    const std::regex asmRe(ASMJS_RE);
+    const std::regex wasmRe(WASM_RE);
 
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
@@ -93,6 +98,10 @@ int main(int argc, char **argv)
         std::smatch match;
         std::string line;
         std::getline(input, line);
+        std::regex re = asmRe;
+        if (line.find("WASM") != std::string::npos || line.find("wasm") != std::string::npos) {
+            re = wasmRe;
+        }
 
         if (std::regex_search(line, match, re))
         {
@@ -142,21 +151,8 @@ void readSymbols(const std::string &path)
         if (std::regex_search(line, match, re))
         {
             SYMBOL_MAP[match[1]] = match[2];
-        } else
-        {
-            flushUnParseLine(line);
         }
     }
-}
 
-void flushUnParseLine(const std::string &line)
-{
-    if (!line.empty())
-    {
-        std::ofstream ofs;
-        ofs.open("/tmp/flushUnParseLines.txt", std::ofstream::out | std::ofstream::app);
-        ofs << line << "\n";
-        ofs.flush();
-        ofs.close();
-    }
+    input.close();
 }
