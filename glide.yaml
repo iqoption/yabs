@@ -1,0 +1,18 @@
+package: yabs
+import:
+- package: github.com/bradfitz/gomemcache
+  subpackages:
+  - memcache
+- package: github.com/gin-gonic/gin
+  version: ^1.1.4
+- package: github.com/go-errors/errors
+- package: github.com/go-redis/redis
+  version: ^6.3.2
+- package: github.com/satori/go.uuid
+  version: ^1.1.0
+- package: github.com/streadway/amqp
+- package: gopkg.in/olivere/elastic.v5
+  version: ^5.0.37
+- package: github.com/sirupsen/logrus
+  version: ^1.0.2
+- package: github.com/iqoption/ginmm

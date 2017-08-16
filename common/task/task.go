@@ -13,9 +13,10 @@ const (
 )
 
 type Symbol struct {
-	Type uint   `json:"type"`
-	Path string `json:"symbol"`
-	Info string `json:"info"`
+	Type  uint   `json:"type"`
+	Path  string `json:"symbol"`
+	Paths []string `json:"paths"`
+	Info  string `json:"info"`
 }
 
 type Dump struct {
@@ -82,23 +83,29 @@ func FromJson(data []byte) interface{} {
 
 func CreateSymbolTask(symbol, info string) *Symbol {
 	return &Symbol{Type: PROCESS_SYMBOLS,
-		Path:            symbol,
-		Info:            info}
+		Path: symbol,
+		Info: info}
+}
+
+func CreateSymbolsTask(symbols []string, info string) *Symbol {
+	return &Symbol{Type: PROCESS_SYMBOLS,
+		Paths: symbols,
+		Info: info}
 }
 
 func CreateDumpTask(dump, info, log string) *Dump {
 	return &Dump{Type: PROCESS_DUMP,
-		Path:          dump,
-		Info:          info,
-		Log:           log,
-		Time:          getTimeStamp()}
+		Path: dump,
+		Info: info,
+		Log: log,
+		Time: getTimeStamp()}
 }
 
 func CreateWebDumpTask(dump, info string) *WebDump {
 	return &WebDump{Type: PROCESS_WEB_DUMP,
-		Path:             dump,
-		Info:             info,
-		Time:             getTimeStamp()}
+		Path: dump,
+		Info: info,
+		Time: getTimeStamp()}
 }
 
 func getTimeStamp() string {

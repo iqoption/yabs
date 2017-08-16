@@ -1,0 +1,23 @@
+{
+  "temprory_dirs": {
+    "symbols": "/tmp/symbols",
+    "dumps": "/tmp/dumps"
+  },
+  "web_server": {
+    "port": 9898,
+    "host": "127.0.0.1"
+  },
+  "rabbit_cfg": {
+    "server": "amqp://guest:guest@localhost:5672/",
+    "queue": "yabs-processor-queue"
+  },
+  "log": {
+    "level": "debug"
+  },
+  "monitoring": {
+    "enable": true,
+    "flush_timeout": 1000000000,
+    "flush_buffer_size": 400,
+    "udp_addr": "127.0.0.1:8092"
+  }
+}
