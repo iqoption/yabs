@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"strconv"
+	"yabs/common/utils"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -31,9 +32,14 @@ func InfoFromFile(path string) (info *Info, err error) {
 	var i Info
 	err = json.Unmarshal(file, &i)
 	if err != nil {
-		log.WithError(err).Error("Can't parse info file")
+		log.WithFields(log.Fields{
+			"error": err,
+			"data":  string(file),
+		}).Error("Can't parse info file")
 		return nil, err
 	}
+
+	i.Version = utils.Trim(i.Version)
 	return &i, nil
 }
 

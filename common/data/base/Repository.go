@@ -72,6 +72,10 @@ func (r *Repository) IsExist(s *Symbol) (bool, error) {
 func (r *Repository) getFromCacheVersion(debugId string) string {
 	v, err := r.cache.Get(debugId)
 	if err != nil {
+		log.WithFields(log.Fields{
+			"error":    err,
+			"debug id": debugId,
+		}).Warning("Can't get version from cache")
 		return ""
 	}
 

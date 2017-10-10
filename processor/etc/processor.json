@@ -1,0 +1,30 @@
+{
+  "symbols_pathname": "/tmp/targetSymDir",
+  "elastic": "http://127.0.0.1:9200",
+  "rabbit_cfg": {
+    "server": "amqp://guest:guest@localhost:5672/",
+    "queue": "yabs-processor-queue",
+    "post-exchange": "post-processing",
+    "post-type": "fanout"
+  },
+  "cache": {
+    "memcache": [],
+    "redis": {
+      "address": "localhost:6379",
+      "password": ""
+    }
+  },
+  "web_blacklist_signaturs": [
+    "^_[a-zA-Z0-9].*$",
+    "^___cxx_global_array_dtor_.*$",
+    "^__GLOBAL__sub\\w+$",
+    "^FUNCTION_TABLE_.*$",
+    "^invoke_.*$",
+    "^b\\d{1,2}$",
+    "^___assert_fail$",
+    "^assert$"
+  ],
+  "log": {
+    "level": "warning"
+  }
+}

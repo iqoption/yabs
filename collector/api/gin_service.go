@@ -245,6 +245,10 @@ func (m *GinCollectorService) PostWebDump() gin.HandlerFunc {
 			c.String(http.StatusBadRequest, "Field info can't be empty")
 			return
 		}
+		log.WithFields(log.Fields{
+			"stack": stack,
+			"info":  infoData,
+		}).Debug("Catch web dump")
 
 		var info map[string]interface{}
 		err := json.Unmarshal([]byte(infoData), &info)
@@ -299,6 +303,8 @@ func (m *GinCollectorService) PostWebDump() gin.HandlerFunc {
 			return
 		}
 
+		tmpDump.Close()
+		tmpInfo.Close()
 		err = m.service.AddWebDump(tmpDump.Name(), tmpInfo.Name())
 		if err != nil {
 			m.closeAndRemove(tmpDump)
@@ -306,8 +312,6 @@ func (m *GinCollectorService) PostWebDump() gin.HandlerFunc {
 
 			m.setServerError("Can't add new task to process minidump files", c)
 		} else {
-			defer tmpDump.Close()
-			defer tmpInfo.Close()
 			m.setSuccessStatus(c)
 		}
 	}

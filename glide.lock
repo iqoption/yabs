@@ -1,5 +1,5 @@
 hash: 8bdd570868f4da6bed9cf7ad884d595dd9b0c645314cc18a70866b0baa8df4bc
-updated: 2017-08-04T18:07:37.325722446+03:00
+updated: 2017-10-10T23:06:35.15535114+03:00
 imports:
 - name: github.com/bradfitz/gomemcache
   version: 1952afaa557dc08e8e0d89eafab110fb501c1a2b
@@ -15,7 +15,7 @@ imports:
 - name: github.com/go-errors/errors
   version: 8fa88b06e5974e97fbf9899a7f86a344bfd1f105
 - name: github.com/go-redis/redis
-  version: 89515eebd1b5761486abd32d9e84a8f55dda7740
+  version: 8e6b51ec3a92ec095dcbd2439c7a3eec6b6cb586
   subpackages:
   - internal
   - internal/consistenthash
@@ -27,32 +27,39 @@ imports:
   subpackages:
   - proto
 - name: github.com/iqoption/ginmm
-  version: 3171ca768d2c94661ca6aecd6186b782a7725acc
+  version: 934fd18f460c0075dc7ad94f4a371f21b9c3eb1e
 - name: github.com/mattn/go-isatty
   version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
 - name: github.com/pkg/errors
-  version: c605e284fe17294bda444b34710735b29d1a9d90
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/satori/go.uuid
   version: 879c5887cd475cd7864858769793b2ceb0d44feb
 - name: github.com/sirupsen/logrus
-  version: a3f95b5c423586578a4e099b11a46c2479628cac
+  version: f006c2ac4710855cf0f916dd6b77acf6b048dc6e
 - name: github.com/streadway/amqp
   version: afe8eee29a74d213b1f3fb2586058157c397da60
 - name: github.com/ugorji/go
   version: 5efa3251c7f7d05e5d9704a69a984ec9f1386a40
   subpackages:
   - codec
+- name: golang.org/x/crypto
+  version: eb71ad9bd329b5ac0fd0148dd99bd62e8be8e035
+  subpackages:
+  - ssh/terminal
 - name: golang.org/x/sys
   version: 9c9d83fe39ed3fd2d9249fcf6b755891fff54b03
   subpackages:
   - unix
+  - windows
 - name: gopkg.in/go-playground/validator.v8
   version: c193cecd124b5cc722d7ee5538e945bdb3348435
 - name: gopkg.in/olivere/elastic.v5
-  version: edbef41beaacc2ee95e61af8faff04e67c01e268
+  version: 2a08d39723b7f4df92b96e2dff891a60952714d6
   subpackages:
   - config
   - uritemplates
+- name: gopkg.in/urfave/cli.v2
+  version: cfb38830724cc34fedffe9a2a29fb54fa9169cd1
 - name: gopkg.in/yaml.v2
   version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
 testImports: []
